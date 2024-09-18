@@ -16,6 +16,7 @@ public class App {
             System.out.println("1. Добавить работника");
             System.out.println("2. Список всех работников");
             System.out.println("3. Работкник по имени и фамилии");
+            System.out.println("4. Редактировать запись");
             System.out.print("Выберите задачу: ");
             int task = scanner.nextInt(); scanner.nextLine();
             switch (task) {
@@ -29,9 +30,13 @@ public class App {
                     break;
                 case 2:
                     System.out.println("Выбрана 2 задача");
+                    listEmployees();
                     break;
                 case 3:
                     System.out.println("Выбрана 3 задача");
+                    break;
+                case 4:
+                    System.out.println("Выбрана 4 задача");
                     break;
                 default:
                     System.out.println("Выбрана несуществующая задача");
@@ -39,52 +44,27 @@ public class App {
             }
         }while (repeat);
         System.out.println("До свидания! :)");
+    }
 
-//        Address address = new Address();
-//        address.setCity("Йыхви");
-//        address.setState("Ида-Вирумаа");
-//        address.setZip("41536");
-//        address.setStreet("Нарвское шоссе");
-//        address.setHouse("80");
-//        address.setRoom("20");
-//
-//        Person person = new Person("Ivan","Ivanov", address,10,10,2000);
-//        Employee employee = new Employee(person, "Директор", "3000");
-//        System.out.printf("Наш работник%nИмя: %s,%n Фамилия %s,%n должность: %s,%n возраст: %d,%n зарплата: %s.%n Проживает по адресу: %s, %s, %s, %s - %s",
-//                employee.getPerson().getName(),
-//                employee.getPerson().getSurname(),
-//                employee.getAppointment(),
-//                employee.getPerson().age(),
-//                employee.getSalary(),
-//                employee.getPerson().getAddress().getState(),
-//                employee.getPerson().getAddress().getCity(),
-//                employee.getPerson().getAddress().getStreet(),
-//                employee.getPerson().getAddress().getHouse(),
-//                employee.getPerson().getAddress().getRoom()
-//        );
-//        Address addressSepp = new Address();
-//        addressSepp.setCity("Силламяэ");
-//        addressSepp.setState("Ида-Вирумаа");
-//        addressSepp.setZip("40533");
-//        addressSepp.setStreet("Виру");
-//        addressSepp.setHouse("9");
-//        addressSepp.setRoom("24");
-//
-//        Person personSepp = new Person("Олег","Сидоров", addressSepp,1,1,2001);
-//        Employee employeeSepp = new Employee(personSepp, "Электрослесарь", "1,500");
-//        System.out.printf("Наш работник%nИмя: %s,%n Фамилия %s,%n должность: %s,%n возраст: %d,%n зарплата: %s.%n Проживает по адресу: %s, %s, %s, %s - %s",
-//                employeeSepp.getPerson().getName(),
-//                employeeSepp.getPerson().getSurname(),
-//                employeeSepp.getAppointment(),
-//                employeeSepp.getPerson().age(),
-//                employeeSepp.getSalary(),
-//                employeeSepp.getPerson().getAddress().getState(),
-//                employeeSepp.getPerson().getAddress().getCity(),
-//                employeeSepp.getPerson().getAddress().getStreet(),
-//                employeeSepp.getPerson().getAddress().getHouse(),
-//                employeeSepp.getPerson().getAddress().getRoom()
-//        );
-
+    private void listEmployees() {
+        System.out.println("Список работников");
+        for (int i = 0; i < employees.length; i++) {
+            if(employees[i] != null){
+                System.out.printf("%d. Работник%nИмя: %s,%nФамилия: %s,%nДолжность: %s,%nВозраст: %d,%nЗарплата: %s.%nПроживает по адресу: %s, %s, %s, %s - %s%n",
+                        i+1,
+                        employees[i].getPerson().getName(),
+                        employees[i].getPerson().getSurname(),
+                        employees[i].getAppointment(),
+                        employees[i].getPerson().age(),
+                        employees[i].getSalary(),
+                        employees[i].getPerson().getAddress().getState(),
+                        employees[i].getPerson().getAddress().getCity(),
+                        employees[i].getPerson().getAddress().getStreet(),
+                        employees[i].getPerson().getAddress().getHouse(),
+                        employees[i].getPerson().getAddress().getRoom()
+                );
+            }
+        }
     }
 
     private void createEmpoyee() {
@@ -127,11 +107,15 @@ public class App {
         Person person = new Person(name,surname, address,birthDay,birthMonth,birthYear);
         Employee employee = new Employee(person, appointment, salary);
         for (int i = 0; i < employees.length; i++) {
-            if (i > 0 && employees[i] != null){continue;}
+            if(employees.length == 0){
+                employees[i] = employee;
+                break;
+            }
+            if (employees[i] != null){continue;}
             employees[i] = employee;
             break;
         }
-        System.out.printf("Добавлен работник%nИмя: %s,%n Фамилия %s,%n должность: %s,%n возраст: %d,%n зарплата: %s.%n Проживает по адресу: %s, %s, %s, %s - %s",
+        System.out.printf("Добавлен работник%nИмя: %s,%n Фамилия %s,%n должность: %s,%n возраст: %d,%n зарплата: %s.%n Проживает по адресу: %s, %s, %s, %s - %s%n",
                 employee.getPerson().getName(),
                 employee.getPerson().getSurname(),
                 employee.getAppointment(),
@@ -143,5 +127,6 @@ public class App {
                 employee.getPerson().getAddress().getHouse(),
                 employee.getPerson().getAddress().getRoom()
         );
+
     }
 }
